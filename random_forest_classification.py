@@ -39,3 +39,24 @@ y = df.loc[:, target_name].values
 
 print("Feature matrix shape: ", X.shape)
 print("Target vector shape: ", y.shape)
+
+# Split into train and test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+rf_classifier = RandomForestClassifier(
+    n_estimators=100, max_depth=5, min_samples_split=2, random_state=0
+)
+rf_classifier.fit(X_train, y_train)
+
+# Prediction
+y_hat = rf_classifier.predict(X_test)
+
+# Score
+print("Score: ", rf_classifier.score(X_test, y_test))
+
+# Evaluation
+print("\nModel evaluation: ")
+print("Accuracy: ", accuracy_score(y_test, y_hat))
+print("\nClassification report: ")
+print(classification_report(y_test, y_hat))
+print("\nConfusion matrix: ")
+print(confusion_matrix(y_test, y_hat))
