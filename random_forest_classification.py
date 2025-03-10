@@ -60,3 +60,18 @@ print("\nClassification report: ")
 print(classification_report(y_test, y_hat))
 print("\nConfusion matrix: ")
 print(confusion_matrix(y_test, y_hat))
+
+# Feature importance
+feature_importance = pd.DataFrame(
+    {"feature": feature_names, "importance": rf_classifier.feature_importances_}
+)
+print("\nFeature importance: ")
+print(feature_importance.sort_values(by="importance", ascending=False))
+
+# Visualize feature importance
+plt.figure(figsize=(12, 8))
+plt.bar(feature_importance["feature"], feature_importance["importance"])
+plt.xlabel("Feature")
+plt.ylabel("Importance")
+plt.title("Feature Importance")
+plt.show()
